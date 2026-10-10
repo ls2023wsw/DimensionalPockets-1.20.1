@@ -8,7 +8,7 @@ modId="dimensionalpockets"
 version="1.0.5"
 displayName="Dimensional Pockets"
 description="Pocket dimensions: place a Dimensional Pocket, step inside a pocket room of your own. 1.20.1 port of the 1.7.10 original by NPException / Team(GTN), LGPL v3."
-authors="NPException, Team(GTN); 1.20.1 port by luoshang"
+authors="NPException, Team(GTN); 1.20.1 port by 殇花"
 
 [[dependencies.dimensionalpockets]]
     modId="forge"

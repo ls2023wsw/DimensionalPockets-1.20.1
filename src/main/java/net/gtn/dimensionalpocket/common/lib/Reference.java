@@ -20,7 +20,7 @@ public final class Reference {
 
     /** Upstream authors, kept for attribution (LGPL v3). */
     public static final String MOD_AUTHORS = "NPException, Team(\"GTN\")";
-    public static final String MOD_CREDITS = "1.20.1 port by luoshang";
+    public static final String MOD_CREDITS = "1.20.1 port by 殇花";
 
     public static final String LOG_PREFIX = MOD_ID;
 

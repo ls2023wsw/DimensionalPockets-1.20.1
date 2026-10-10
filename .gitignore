@@ -1,0 +1,48 @@
+# --- build output ---
+build/
+out/
+bin/
+classes/
+
+# --- gradle ---
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# --- forge dev runs ---
+run/
+runs/
+run-data/
+
+# --- tool state (this project has a few of these inside the source tree) ---
+.mimosa/
+
+# --- IDE ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+nbproject/
+
+# --- logs / crash dumps ---
+*.log
+logs/
+crash-reports/
+hs_err_pid*.log
+replay_pid*.log
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- local scratch ---
+*.bak
+*.orig
+*.tmp
+
+# NOTE: dist/ is deliberately NOT ignored - the built jar is published there.
