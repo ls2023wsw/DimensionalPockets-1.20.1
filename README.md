@@ -16,7 +16,7 @@ This is a **full-featured port** of the 1.7.10 mod
 | modId | `dimensionalpockets` |
 | Version | 1.0.5 (tracks the upstream version) |
 | License | GNU LGPL v3 (see [`LICENSE`](LICENSE)) |
-| Jar | [`dist/DimensionalPockets-1.20.1-1.0.5.jar`](dist/) |
+| Download | [**Releases → 1.0.5**](https://github.com/ls2023wsw/DimensionalPockets-1.20.1/releases/tag/1.0.5) — asset `DimensionalPockets-1.20.1-1.0.5.jar` |
 
 ---
 
@@ -36,7 +36,7 @@ This is a **full-featured port** of the 1.7.10 mod
 ## 安装 / Install
 
 1. 装好 **Minecraft 1.20.1 + Forge 47.4.0**（或任何 1.20.1 Forge 整合包）。
-2. 把 `dist/DimensionalPockets-1.20.1-1.0.5.jar` 丢进 `.minecraft/mods/`。
+2. 从 [Releases](https://github.com/ls2023wsw/DimensionalPockets-1.20.1/releases/latest) 下载 **`DimensionalPockets-1.20.1-1.0.5.jar`**，丢进 `.minecraft/mods/`。
 3. 无前置模组，无编译期外部依赖（只依赖 Forge + 原版）。
 
 ## 构建 / Build

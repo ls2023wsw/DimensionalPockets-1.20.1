@@ -45,4 +45,5 @@ desktop.ini
 *.orig
 *.tmp
 
-# NOTE: dist/ is deliberately NOT ignored - the built jar is published there.
+# --- local publish staging: the released jar lives on GitHub Releases, not in git ---
+dist/

@@ -15,7 +15,7 @@
 - **无编译期外部依赖**（只依赖 Forge + 原版）。
 - 规模：**56 java / 8091 行 + 70 资源**。
 - 完整交付说明（注册名对照 / 逐项映射 / 丢弃项 / 25 条游戏内测试清单 / 已知风险 / 19 条坑 / §7 渲染修复 / §8 发布记录）：**`移植说明-1.20.1.md`（同目录）**。
-- **已开源发布**：**https://github.com/ls2023wsw/DimensionalPockets-1.20.1**（PUBLIC / GitHub 识别 `LGPL-3.0` / 默认分支 `master`）。仓库根另含 `README.md`（面向使用者）、`.gitignore`、`dist/DimensionalPockets-1.20.1-1.0.5.jar`（编译好的 mod）。**1.20.1 移植者署名：殇花**。
+- **已开源发布**：**https://github.com/ls2023wsw/DimensionalPockets-1.20.1**（PUBLIC / GitHub 识别 `LGPL-3.0` / 默认分支 `master`）。**编译好的 jar 走 Release 附件**（不进 git）：https://github.com/ls2023wsw/DimensionalPockets-1.20.1/releases/tag/1.0.5 （tag `1.0.5`，已标记 Latest）。仓库根另含 `README.md`（面向使用者）与 `.gitignore`。**1.20.1 移植者署名：殇花**。
 
 ---
 
@@ -90,7 +90,7 @@
 E:\pjectAI\z3\02-构建环境\huanjing\build.bat E:\pjectAI\z3\01-模组源码\DimensionalPockets-1.20.1
 ```
 
-- 产物：`build\libs\DimensionalPockets-1.20.1-1.0.5.jar`；**发布用的副本放 `dist\`**（同内容，随仓库一起发布）。
+- 产物：`build\libs\DimensionalPockets-1.20.1-1.0.5.jar`。**jar 不进 git**，发布用的那一份作为 **Release 附件**上传：https://github.com/ls2023wsw/DimensionalPockets-1.20.1/releases/latest
 - 部署：复制到 `J:\game\MC\.minecraft\versions\优化2.0\mods\`（该目录原有 198 个 jar，**无同名冲突**）。
 - 发布：改完源码 → 同步到备份仓库 `J:\AItempback\DimensionalPockets-1.20.1\`（**该仓库就是 GitHub 的源**，已排除 `build/`、`.gradle/`、`.mimosa/`）→ `git push`。push 要点见交付说明 §8.3（本机需显式设 `HTTPS_PROXY=http://127.0.0.1:10809`，gh 不读 Windows 系统代理）。
 - **jar 校验要点**：确认 `assets/`（blockstates / models / textures / lang）、`data/dimensionalpockets/`（**dimension、dimension_type、worldgen/biome 三份 JSON 缺一世界就加载失败**）、`data/minecraft/tags/`、`META-INF/mods.toml`、`pack.mcmeta` 都在。
