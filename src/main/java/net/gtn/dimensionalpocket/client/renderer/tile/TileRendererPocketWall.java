@@ -112,10 +112,17 @@ public class TileRendererPocketWall implements BlockEntityRenderer<TileDimension
 
         if (!isInGui) {
             // 1.7.10: setInterpolatedPosition(x - tempX, y - tempY, z - tempZ), small = false.
+            // The PoseStack origin is the connector's own block, so that same shift has to be applied
+            // to the geometry too: without it the 14x14 field starts at the connector instead of at
+            // the room's inner corner, which drifts the whole field up to 14 blocks off the wall.
+            // The world anchored UVs already use it through `origin`.
             Vec3 origin = Vec3.atLowerCornerOf(blockEntity.getBlockPos()).add(-tempX, -tempY, -tempZ);
+            pose.pushPose();
+            pose.translate(-tempX, -tempY, -tempZ);
             portalRenderer.renderFace(pose, buffers, wallVisibleSide, offset, FRAME_SCALE, fancy, false,
                     DPConfig.CFG.numberOfParticlePlanes(), origin, ClientEventHandler.gameTicks,
                     seedFor(wallVisibleSide));
+            pose.popPose();
         }
 
         // "frame other offsets and scale because the texture is smaller" (upstream comment)

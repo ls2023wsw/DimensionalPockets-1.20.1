@@ -1,7 +1,7 @@
 # DimensionalPockets-1.20.1 INDEX（模组导航）
 
 > 上级索引：`../WORKSPACE_MAP.md`。**进本模组前先读本文件。**
-> 最后更新：2026-10-10
+> 最后更新：2026-10-10（第二轮：**渲染修复**，见交付说明 §7）
 
 ---
 
@@ -13,8 +13,8 @@
 
 - `build.gradle` 的 `version = '1.0.5'`；modId `dimensionalpockets`（上游 `dimensionalPockets` 含大写，1.20.1 不允许）。
 - **无编译期外部依赖**（只依赖 Forge + 原版）。
-- 规模：**56 java / 8011 行 + 70 资源**。
-- 完整交付说明（注册名对照 / 逐项映射 / 丢弃项 / 25 条游戏内测试清单 / 已知风险 / 坑）：**`移植说明-1.20.1.md`（同目录）**。
+- 规模：**56 java / 8091 行 + 70 资源**。
+- 完整交付说明（注册名对照 / 逐项映射 / 丢弃项 / 25 条游戏内测试清单 / 已知风险 / 19 条坑 / **§7 渲染修复记录**）：**`移植说明-1.20.1.md`（同目录）**。
 
 ---
 
@@ -59,7 +59,7 @@
 | `client` | `ClientProxy` / `ClientSetup` / `PocketDimensionEffects` | 客户端注册总入口（BER / 屏幕 / 命令 / 维度特效） |
 | `client\event` | `ClientEventHandler` / `ClientPlayerTickEventHandler` / `RenderEventHandler` | 客户端事件（含 `dptweak` 命令注册） |
 | `client\gui` | `InfoBookScreen` | 10 页指南书 + 配方页 + 自绘箭头 |
-| `client\renderer` | `PortalRenderer` / `tile\TileRendererPocket` / `tile\TileRendererPocketWall` / `item\ItemPocketRenderer` | 粒子场（非着色器版）+ 方块/墙/物品渲染 |
+| `client\renderer` | `PortalRenderer` / `tile\TileRendererPocket` / `tile\TileRendererPocketWall` / `item\ItemPocketRenderer` | 粒子场（非着色器版；**粒子层自建加法混合 `RenderType`**）+ 方块/墙/物品渲染 |
 | `client\particles` | `PlayerStreamFX` / `PlayerExplosionFX` | 被吸入的粒子流（后者是上游死代码，保留） |
 | `client\theme` / `client\lib` | `PocketTextures` / `TextureWrapper` / `IColourBlindTexture` / `TextureMaps` | 贴图查找与颜色盲变体 |
 | `client\utils` | `RenderUtils` / `UtilsFX` / `GuiSheet` / `RecipeHelper` | 面绘制、帧贴图与渲染类型、GUI 贴图坐标、配方查询 |
@@ -76,7 +76,7 @@
 | 改穿墙转发（能量/流体/物品） | `common/tileentity/TileDimensionalPocket.java` + `TileDimensionalPocketWallConnector.java` |
 | 改面状态机 | `common/core/pocket/PocketSideState.java`（**只有 `NONE` / `ENERGY` 两个值**） |
 | 改传送落点 / 失败提示 | `common/core/pocket/Pocket.java`（`teleportTo` / `teleportFrom`）+ `TeleportDirection.java` |
-| 改粒子场 / 渲染 | `client/renderer/PortalRenderer.java`（层数/旋转/滚动速度）+ `client/utils/UtilsFX.java` |
+| 改粒子场 / 渲染 | `client/renderer/PortalRenderer.java`（层数/旋转/滚动速度/**混合模式**）+ `client/utils/UtilsFX.java` |
 | 改指南书页数或文案 | `client/gui/InfoBookScreen.java` + `assets/dimensionalpockets/lang/{en_us,zh_cn}.json` |
 | 改配方 / 掉落 / 标签 | `src/main/resources/data/dimensionalpockets/recipes/`、`loot_tables/`、`data/minecraft/tags/blocks/mineable/` |
 | 改维度属性（min_y / height / 天空） | `data/dimensionalpockets/dimension_type/pocket.json` + `client/PocketDimensionEffects.java` |
@@ -99,8 +99,8 @@ E:\pjectAI\z3\02-构建环境\huanjing\build.bat E:\pjectAI\z3\01-模组源码\D
 
 ## 4. 相关
 
-- **交付说明（必读）**：`移植说明-1.20.1.md`（同目录）—— 注册名对照、逐项功能映射、丢弃项与原因、**25 条游戏内测试清单**、已知风险、16 条坑。
+- **交付说明（必读）**：`移植说明-1.20.1.md`（同目录）—— 注册名对照、逐项功能映射、丢弃项与原因、**25 条游戏内测试清单**、已知风险、**19 条坑**、**§7 渲染修复记录（2026-10-10 第二轮）**。
 - 日志规范：`../03-规范与文档/模组日志规范.md`（**写代码前必读第一部**）
-- 跨会话记忆：`memory/2026-10.md` 的 `#[dimensionalpockets-1.0.5]` 节；坑见 `context_cache.md` 的 `#[pit-134]`~`#[pit-137]`
-- 备份仓库：`J:\AItempback\DimensionalPockets-1.20.1\`（tag `1.0.5`）
+- 跨会话记忆：`memory/2026-10.md` 的 `#[dimensionalpockets-1.0.5]` 节（含 2026-10-10 渲染修复补充）；坑见 `context_cache.md` 的 `#[pit-134]`~`#[pit-140]`
+- 备份仓库：`J:\AItempback\DimensionalPockets-1.20.1\`（tag `1.0.5` 首版、`1.0.5-2` 渲染修复）
 - 上级地图：`../WORKSPACE_MAP.md`

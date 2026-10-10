@@ -1,12 +1,21 @@
 package net.gtn.dimensionalpocket.client.renderer;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.gtn.dimensionalpocket.common.lib.Reference;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
@@ -50,11 +59,12 @@ import net.minecraft.world.phys.Vec3;
  * </ol>
  *
  * <p><b>Blending</b>: upstream drew the tunnel layer with {@code SRC_ALPHA/ONE_MINUS_SRC_ALPHA} and
- * every particle layer with {@code GL_ONE/GL_ONE} (additive). 1.20.1 has no additive
- * {@link RenderType} that accepts an arbitrary texture (and this workspace has no precedent for a
- * hand rolled one), so both use {@link RenderType#entityTranslucent(ResourceLocation)}; the particle
- * layers carry the upstream brightness factor in the alpha channel instead of adding it to the
- * colour - otherwise the first layer would be fully opaque and hide every layer behind it.
+ * every particle layer with {@code GL_ONE/GL_ONE} (additive). In <b>both</b> cases the brightness
+ * lived in the <b>colour</b> and the alpha stayed {@code 1.0}. 1.20.1 has no built in additive
+ * {@link RenderType} that accepts an arbitrary texture, so {@link #additiveField(ResourceLocation)}
+ * rolls one; the tunnel layer keeps {@link RenderType#entityTranslucent(ResourceLocation)}.
+ * Putting the brightness into the alpha instead makes the field nearly invisible: 16 stacked layers
+ * of 6%..26% alpha composite to a faint wash instead of adding up.
  */
 public final class PortalRenderer {
 
@@ -177,13 +187,63 @@ public final class PortalRenderer {
                 blue = 1.0F;
             }
 
-            float alpha = i == 0 ? 1.0F : brightness;
+            // 1.7.10: the tunnel layer used SRC_ALPHA/ONE_MINUS_SRC_ALPHA, every particle layer used
+            // GL_ONE/GL_ONE (additive); the brightness is carried by the colour and the alpha is 1.0.
+            RenderType renderType = i == 0 ? RenderType.entityTranslucent(texture) : additiveField(texture);
             float angleDegrees = (i * i * 4321 + i * 9) * 2.0F;
-            VertexConsumer consumer = buffers.getBuffer(RenderType.entityTranslucent(texture));
+            VertexConsumer consumer = buffers.getBuffer(renderType);
             float[] uv = worldUvs(face, xyz, fieldOrigin, textureScale, angleDegrees, fieldTranslation);
-            emitQuad(pose, consumer, xyz, uv, red * brightness, green * brightness, blue * brightness, alpha,
+            emitQuad(pose, consumer, xyz, uv, red * brightness, green * brightness, blue * brightness, 1.0F,
                     nx, ny, nz);
         }
+    }
+
+    /**
+     * The shader {@link RenderType#entityTranslucent(ResourceLocation)} uses. Vanilla keeps every
+     * state shard {@code protected} on {@link RenderStateShard}, so they have to be built here
+     * instead of borrowed from {@link RenderType}.
+     */
+    private static final RenderStateShard.ShaderStateShard ENTITY_TRANSLUCENT_SHADER =
+            new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEntityTranslucentShader);
+
+    /** 1.7.10 {@code glBlendFunc(1, 1)}, i.e. {@code GL_ONE/GL_ONE}. */
+    private static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY =
+            new RenderStateShard.TransparencyStateShard("dimensionalpockets_additive_transparency",
+                    () -> {
+                        RenderSystem.enableBlend();
+                        RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+                    },
+                    () -> {
+                        RenderSystem.disableBlend();
+                        RenderSystem.defaultBlendFunc();
+                    });
+
+    /**
+     * Additive counterpart of {@link RenderType#entityTranslucent(ResourceLocation)}: same vertex
+     * format, shader, cull / lightmap / overlay state and write mask, only the blending differs.
+     * The {@code COLOR_WRITE} mask matters here - vanilla's translucent types never write depth, and
+     * an additive layer that did would cull whatever is drawn after it. The composite state is
+     * immutable, so the cache is purely an allocation saver - one entry per field texture.
+     */
+    private static final Map<ResourceLocation, RenderType> ADDITIVE_FIELD = new HashMap<>();
+
+    private static RenderType additiveField(ResourceLocation texture) {
+        return ADDITIVE_FIELD.computeIfAbsent(texture, t -> RenderType.create(
+                "dimensionalpockets_particle_field",
+                DefaultVertexFormat.NEW_ENTITY,
+                VertexFormat.Mode.QUADS,
+                256,
+                true,
+                true,
+                RenderType.CompositeState.builder()
+                        .setShaderState(ENTITY_TRANSLUCENT_SHADER)
+                        .setTextureState(new RenderStateShard.TextureStateShard(t, false, true))
+                        .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                        .setCullState(new RenderStateShard.CullStateShard(true))
+                        .setLightmapState(new RenderStateShard.LightmapStateShard(true))
+                        .setOverlayState(new RenderStateShard.OverlayStateShard(true))
+                        .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
+                        .createCompositeState(true)));
     }
 
     private static void emitQuad(PoseStack pose, VertexConsumer consumer, float[] xyz, float[] uv,
