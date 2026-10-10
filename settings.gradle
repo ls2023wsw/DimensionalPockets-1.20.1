@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'BMCLAPI'
+            url = 'https://bmclapi2.bangbang93.com/maven/'
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'dimensionalpockets'

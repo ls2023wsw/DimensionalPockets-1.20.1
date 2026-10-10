@@ -1,0 +1,10 @@
+{
+  "type": "dimensionalpockets:pocket",
+  "generator": {
+    "type": "dimensionalpockets:pocket",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "dimensionalpockets:pocket"
+    }
+  }
+}

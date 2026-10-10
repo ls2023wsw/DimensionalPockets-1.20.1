@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "dimensionalpockets:dimensional_pocket",
+    "dimensionalpockets:dimensional_pocket_wall"
+  ]
+}

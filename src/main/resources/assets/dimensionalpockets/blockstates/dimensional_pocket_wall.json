@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "connector=false": {
+      "model": "dimensionalpockets:block/dimensional_pocket_wall"
+    },
+    "connector=true": {
+      "model": "dimensionalpockets:block/dimensional_pocket_wall_connector"
+    }
+  }
+}

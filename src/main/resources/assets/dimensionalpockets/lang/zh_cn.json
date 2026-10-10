@@ -1,0 +1,56 @@
+{
+  "itemGroup.dimensionalpockets.main": "次元口袋",
+
+  "block.dimensionalpockets.dimensional_pocket": "次元口袋",
+  "block.dimensionalpockets.dimensional_pocket_wall": "次元口袋墙",
+
+  "item.dimensionalpockets.info_book": "次元口袋指南",
+  "item.dimensionalpockets.end_crystal": "§5末地水晶§r",
+  "item.dimensionalpockets.nether_crystal": "§c地狱水晶§r",
+
+  "pocket.side.state.NONE": "§7§o无",
+  "pocket.side.state.ENERGY": "§6§o传输",
+  "pocket.side.state.FLUID": "§b§o流体",
+  "pocket.side.state.ITEM": "§a§o物品",
+  "pocket.side.state.REDSTONE": "§4§o红石",
+
+  "info.trapped.1": "你被困住了！也许有人破坏了次元口袋……",
+  "info.trapped.2": "不知为何，你无法重新实体化！就好像有什么东西把它挡住了……",
+  "info.exit.blocked": "你无法传送，因为出去之后没有落脚点。口袋周围没有可用的空位。",
+
+  "info.spawn.set.in.pocket": "你已在次元口袋中设置了新的重生点。",
+  "info.pocket.side.state.set.to": "§7§o%s §8§o已设置为：%s",
+
+  "info.tooltip.shift": "{0}按住 {}Shift {}查看更多信息。",
+  "info.tooltip.default.shift": "§8按住 §7Shift §8查看更多信息。",
+  "info.tooltip.endCrystal.shift": "在次元口袋内使用时，会将该口袋内的重生点设置为你当前所在的位置。",
+  "info.tooltip.netherCrystal.shift": "你可以对着次元口袋的某个面使用它，以切换该面的状态。这同样适用于口袋内侧。\n潜行时对着口袋的内壁使用这枚水晶，可以设置该墙上「连接器」的位置。",
+  "info.tooltip.crystal.craft.remaining.singular": "还可用于合成 1 次",
+  "info.tooltip.crystal.craft.remaining.plural": "还可用于合成 %s 次",
+
+  "info.page.maxPage": "9",
+
+  "info.page.recipe.endCrystal.id": "5",
+  "info.page.recipe.netherCrystal.id": "6",
+  "info.page.recipe.block.id": "7",
+
+  "info.page.recipe.block": "§1§n次元口袋配方§r",
+  "info.page.recipe.endCrystal": "§5§n末地水晶配方§r",
+  "info.page.recipe.netherCrystal": "§c§n地狱水晶配方§r",
+
+  "info.page.0": "欢迎来到<br>   §1§n次元口袋<br> <br>这本书会陪你走上把 Minecraft 里的生活压缩收纳起来的道路。<br>它会教你把「空间不够」这种无聊的烦恼抛在脑后，因为这是一个全新的层次。<br>用法很简单，点击右下角的箭头就好。<br>你大概也看得出来，这个模组并没有添加多少东西。<br>东西虽少，换来的功能却很实在。",
+  "info.page.1": "那么，来看看唯一的方块——次元口袋。<br>放置后空手右键，你就能进入其中。<br> <br>没错。<br> <br>走进方块里。",
+  "info.page.2": "想出来的话，只需空手对着墙壁潜行右键。<br> <br>要小心，如果次元口袋被人破坏，你可能会被困在里面！<br>所以当朋友待在次元口袋里时，你可以把它破坏掉，然后把他随身带走。<br> <br>便携朋友。 <3",
+  "info.page.3": "当你身处次元口袋中时，会注意到每面墙上都有一个奇怪的标记点。<br>它们被称为「连接器」，标记着与外界对应面实际交互的位置。<br> <br>剩下的你自己就能摸索出来啦。 :)",
+  "info.page.4": "还有一件事：<br> <br>次元口袋的合成配方需要两种不同的水晶。这些水晶除了当合成材料之外还有别的用途。<br> <br>如果你想知道那些用途，就把鼠标悬停在物品栏里的水晶上并按住 [Shift]。",
+  "info.page.5": "末地水晶<br> <br>在次元口袋内右键，即可把重生点设置在那里。<br> <br>如果你想长期搬进去住，这很有用。",
+  "info.page.6": "地狱水晶<br> <br>右键次元口袋的某个面，可切换该面的状态。<br> <br>潜行右键口袋内壁，可移动该面的连接器。",
+  "info.page.7": "合成<br> <br>两个次元口袋：<br> <br>地狱水晶：<br> <br>末地水晶：<br> <br>指南书：<br> <br>（配方见后续页面）",
+  "info.page.8": "如果你想让某个模组与我们合作，欢迎联系我们。我们不会这么快就弃坑，敬请期待更多内容！:D<br>希望你喜欢它。",
+  "info.page.9": "程序：<br> <br> <br> - Jezza<br>      @Jezzadabomb338<br> <br> - NPException<br>      @NPException<br> <br> <br> <br>贴图：<br> <br> - Gellebgs<br>      @silverangel777",
+
+  "functionality.disabled.in.pocket": "这在次元口袋里似乎不起作用……",
+
+  "debug_enablechat": "[调试] 启用聊天",
+  "debug_enableconsole": "[调试] 启用控制台"
+}
